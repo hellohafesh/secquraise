@@ -3,7 +3,7 @@ import React from 'react';
 const SideNav = () => {
     return (
         <div>
-            <h1>VVVvvvvvvvvvvv</h1>
+            d
         </div>
     );
 };

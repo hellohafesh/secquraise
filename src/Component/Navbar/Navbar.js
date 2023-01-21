@@ -59,8 +59,8 @@ function Navbar() {
                             <Search sx={{ display: { xs: 'none', sm: 'inline' }, m: 2 }}>
                                 <SearchIcon />
                             </Search>
-                            <Button sx={{ display: { xs: 'none', sm: 'inline' }, m: 2 }} variant="contained" color="success" className='text-white'>25</Button>
-                            <Button sx={{ display: { xs: 'none', sm: 'inline' }, m: 2 }} variant="contained" color="error" className='text-white'>25 </Button>
+                            <Button sx={{ display: { xs: 'none', sm: 'inline' }, m: 2 }} variant="contained" color="success" c>25</Button>
+                            <Button sx={{ display: { xs: 'none', sm: 'inline' }, m: 2 }} variant="contained" color="error" c>25 </Button>
                         </Stack>
 
                     </Box>
