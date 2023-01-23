@@ -35,7 +35,6 @@ function Navbar() {
 
                     <Typography
                         variant="h6"
-                        noWrap
                         component="a"
                         href="/"
                         sx={{
@@ -46,7 +45,7 @@ function Navbar() {
                             textDecoration: 'none',
                         }}
                     >
-                        Secqur<span class="text-red-600/100">AI</span>SE
+                        Secqur<span className="text-red-600/100">AI</span>SE
                     </Typography>
 
 

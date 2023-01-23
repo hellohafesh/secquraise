@@ -1,15 +1,4 @@
 import React from 'react';
-
-// const SideNav = () => {
-//     return (
-//         <div>
-//             d
-//         </div>
-//     );
-// };
-
-// export default SideNav;
-
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -34,11 +23,18 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Stack } from '@mui/system';
 import { Button } from '@mui/material';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import useGetPerson from '../../Hooks/useGetPerson';
 
 
-const drawerWidth = 240;
+const bigdrawerWidth = 300;
+const smalldrawerWidth = 220;
 
 function SideNav(props) {
+
+
+    const { data } = useGetPerson();
+    console.log(data);
+
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -53,35 +49,14 @@ function SideNav(props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{ display: 'flex' }} className="h-[90vh]">
+        <Box sx={{ display: 'flex' }} className="mx-h-auto min-h-[90vh]">
             <CssBaseline />
-            {/* <AppBar
-                position="fixed"
-                sx={{
-                    width: { sm: `calc(100% - ${drawerWidth}px)` },
-                    ml: { sm: `${drawerWidth}px` },
-                }}
-            >
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Responsive drawer
-                    </Typography>
-                </Toolbar>
-            </AppBar> */}
+
 
             <AppBar position="fixed"
                 sx={{
-                    width: { sm: `calc( ${drawerWidth}px - 100%)` },
-                    ml: { sm: `${drawerWidth}px` },
+                    width: { sm: `calc( ${bigdrawerWidth}px - 100%)` },
+                    ml: { sm: `${bigdrawerWidth}px` },
                 }}
             >
                 <Container maxWidth="xl  bg-[#001c7b]">
@@ -97,7 +72,6 @@ function SideNav(props) {
                         </IconButton>
                         <Typography
                             variant="h6"
-                            noWrap
                             component="a"
                             href="/"
                             sx={{
@@ -108,7 +82,7 @@ function SideNav(props) {
                                 textDecoration: 'none',
                             }}
                         >
-                            Secqur<span class="text-red-600/100">AI</span>SE
+                            Secqur<span className="text-red-600/100">AI</span>SE
                         </Typography>
 
 
@@ -130,18 +104,20 @@ function SideNav(props) {
                 </Container>
             </AppBar>
 
-            <div className='h-[90vh] bg-[#00b8f1] p-2 grid grid-cols-1  content-between'>
+            <div className='xs:hidden sm:hidden lg:block md:block'>
+                <div className='h-[100%] bg-[#00b8f1] p-2 grid grid-cols-1  content-between ' >
 
-                <MenuIcon className='text-white'>
-                </MenuIcon>
-                <ExitToAppOutlinedIcon className='text-white'>
-                </ExitToAppOutlinedIcon>
+                    <MenuIcon className='text-white'>
+                    </MenuIcon>
+                    <ExitToAppOutlinedIcon className='text-white'>
+                    </ExitToAppOutlinedIcon>
 
 
+                </div>
             </div>
             <Box
                 component="main"
-                sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+                sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${bigdrawerWidth}px)` } }}
                 className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4"
             >
 
@@ -175,7 +151,7 @@ function SideNav(props) {
             </Box>
             <Box
                 // component="nav"
-                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+                sx={{ width: { sm: bigdrawerWidth }, flexShrink: { sm: 0 } }}
                 aria-label="mailbox folders"
             >
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -190,33 +166,18 @@ function SideNav(props) {
                     anchor="right"
                     sx={{
                         display: { xs: 'block', sm: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: smalldrawerWidth },
                     }}
                 >
                     <div>
                         <Toolbar className='flex justify-center'><TuneIcon /></Toolbar>
                         <Divider />
                         <List>
-                            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                                <ListItem key={text} disablePadding>
+                            {data?.map(person => (
+                                <ListItem key={person.key} disablePadding>
                                     <ListItemButton>
-                                        <ListItemIcon>
-                                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                        </ListItemIcon>
-                                        <ListItemText primary={text} />
-                                    </ListItemButton>
-                                </ListItem>
-                            ))}
-                        </List>
-                        <Divider />
-                        <List>
-                            {['All mail', 'Trash', 'small'].map((text, index) => (
-                                <ListItem key={text} disablePadding>
-                                    <ListItemButton>
-                                        <ListItemIcon>
-                                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                        </ListItemIcon>
-                                        <ListItemText primary={text} />
+                                        {/* <ListItemText primary= /> */}
+                                        <Typography>{person.ID}: {person.Location}</Typography>
                                     </ListItemButton>
                                 </ListItem>
                             ))}
@@ -227,7 +188,7 @@ function SideNav(props) {
                     variant="permanent"
                     sx={{
                         display: { xs: 'none', sm: 'block' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, marginTop: '70px' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: bigdrawerWidth, marginTop: '70px' },
 
                     }}
                     anchor="right"
@@ -236,26 +197,11 @@ function SideNav(props) {
                         <Toolbar className='flex justify-center'><TuneIcon /></Toolbar>
                         <Divider />
                         <List>
-                            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                                <ListItem key={text} disablePadding>
+                            {data?.map(person => (
+                                <ListItem key={person.key} disablePadding>
                                     <ListItemButton>
-                                        <ListItemIcon>
-                                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                        </ListItemIcon>
-                                        <ListItemText primary={text} />
-                                    </ListItemButton>
-                                </ListItem>
-                            ))}
-                        </List>
-                        <Divider />
-                        <List>
-                            {['All mail', 'Trash', 'Big'].map((text, index) => (
-                                <ListItem key={text} disablePadding>
-                                    <ListItemButton>
-                                        <ListItemIcon>
-                                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                        </ListItemIcon>
-                                        <ListItemText primary={text} />
+                                        {/* <ListItemText primary= /> */}
+                                        <Typography>{person.ID}: {person.Location}</Typography>
                                     </ListItemButton>
                                 </ListItem>
                             ))}
@@ -263,7 +209,7 @@ function SideNav(props) {
                     </div>
                 </Drawer>
             </Box>
-        </Box>
+        </Box >
     );
 }
 

@@ -35,7 +35,7 @@ export default function Footer() {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                // minHeight: '50vh',
+                minHeight: 'auto',
             }}
         >
             <CssBaseline />
